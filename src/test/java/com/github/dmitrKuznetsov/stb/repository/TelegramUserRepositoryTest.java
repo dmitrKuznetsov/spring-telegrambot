@@ -1,8 +1,7 @@
 package com.github.dmitrKuznetsov.stb.repository;
 
+import com.github.dmitrKuznetsov.stb.repository.entity.GroupSub;
 import com.github.dmitrKuznetsov.stb.repository.entity.TelegramUser;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -12,6 +11,7 @@ import org.springframework.test.context.jdbc.Sql;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace.NONE;
 
 @DataJpaTest
@@ -28,7 +28,7 @@ class TelegramUserRepositoryTest {
         List<TelegramUser> telegramUsers = telegramUserRepository.findAllByActiveTrue();
 
         //then
-        Assertions.assertEquals(5, telegramUsers.size());
+        assertEquals(5, telegramUsers.size());
     }
 
     @Sql(scripts = {"/sql/clearDbs.sql"})
@@ -44,7 +44,23 @@ class TelegramUserRepositoryTest {
         Optional<TelegramUser> saved = telegramUserRepository.findById(user.getChatId());
 
         //then
-        Assertions.assertTrue(saved.isPresent());
-        Assertions.assertEquals(user, saved.get());
+        assertTrue(saved.isPresent());
+        assertEquals(user, saved.get());
+    }
+
+    @Sql(scripts = {"/sql/clearDbs.sql", "/sql/fiveGroupSubsForUser.sql"})
+    @Test
+    public void shouldProperlyGetAllGroupSubsForUser() {
+        // when
+        Optional<TelegramUser> user = telegramUserRepository.findById("1");
+
+        // then
+        assertTrue(user.isPresent());
+        List<GroupSub> groupSubs = user.get().getGroupSubs();
+        for (int ii = 0; ii < groupSubs.size(); ii++) {
+            assertEquals(String.format("g%d", ii + 1), groupSubs.get(ii).getTitle());
+            assertEquals(ii + 1, groupSubs.get(ii).getId());
+            assertEquals(ii + 1, groupSubs.get(ii).getLastArticleId());
+        }
     }
 }

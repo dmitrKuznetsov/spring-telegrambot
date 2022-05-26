@@ -1,8 +1,9 @@
 package com.github.dmitrKuznetsov.stb.command;
 
+import com.github.dmitrKuznetsov.stb.javarushclient.JavaRushGroupClient;
+import com.github.dmitrKuznetsov.stb.services.GroupSubService;
 import com.github.dmitrKuznetsov.stb.services.SendBotMessageService;
 import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,14 @@ class CommandContainerTest {
     void init() {
         SendBotMessageService sendBotMessageService = Mockito.mock(SendBotMessageService.class);
         TelegramUserService telegramUserService = Mockito.mock(TelegramUserService.class);
-        commandContainer = new CommandContainer(sendBotMessageService, telegramUserService);
+        JavaRushGroupClient javaRushGroupClient = Mockito.mock(JavaRushGroupClient.class);
+        GroupSubService groupSubService = Mockito.mock(GroupSubService.class);
+        commandContainer = new CommandContainer(
+                sendBotMessageService,
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubService
+        );
     }
 
     @Test
@@ -29,7 +37,7 @@ class CommandContainerTest {
         // when-then
         Arrays.stream(CommandName.values()).forEach(commandName -> {
             Command command = commandContainer.retrieveCommand(commandName.getCommandName());
-            Assertions.assertNotEquals(UnknownCommand.class, command.getClass());
+            assertNotEquals(UnknownCommand.class, command.getClass());
         });
     }
 
@@ -42,6 +50,6 @@ class CommandContainerTest {
         Command command = commandContainer.retrieveCommand(commandIdentifier);
 
         // then
-        Assertions.assertEquals(UnknownCommand.class, command.getClass());
+        assertEquals(UnknownCommand.class, command.getClass());
     }
 }

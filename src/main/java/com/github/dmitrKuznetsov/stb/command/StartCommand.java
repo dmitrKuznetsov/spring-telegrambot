@@ -7,13 +7,17 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Optional;
 
+import static com.github.dmitrKuznetsov.stb.command.CommandUtils.getChatId;
+
 public class StartCommand implements Command {
 
     private final SendBotMessageService sendBotMessageService;
     private final TelegramUserService telegramUserService;
 
-    public static String START_MESSAGE = "Привет. Я Javarush Telegram Bot. Я помогу тебе быть в курсе последних " +
-            "статей тех авторов, котрые тебе интересны. Я еще маленький и только учусь.";
+    public static String START_MESSAGE = "Привет. Я Javarush Telegram Bot.\n " +
+            "Я помогу тебе быть в курсе последних статей тех авторов, которые тебе интересны.\n\n" +
+            "Нажимай /addgroupsub чтобы подписаться на группу статей в JavaRush.\n" +
+            "Не знаешь о чем я? Напиши /help, чтобы узнать что я умею.";
 
     StartCommand(SendBotMessageService sendBotMessageService,
                  TelegramUserService telegramUserService) {
@@ -23,7 +27,7 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
+        String chatId = getChatId(update);
 
         Optional<TelegramUser> optionalTelegramUser = telegramUserService.findByChatId(chatId);
         TelegramUser telegramUser;

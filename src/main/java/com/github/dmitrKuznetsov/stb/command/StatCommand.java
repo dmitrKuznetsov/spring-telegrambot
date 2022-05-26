@@ -5,6 +5,8 @@ import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.github.dmitrKuznetsov.stb.command.CommandUtils.getChatId;
+
 public class StatCommand implements Command {
 
     private final TelegramUserService telegramUserService;
@@ -20,8 +22,7 @@ public class StatCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
         int activeUserCount = telegramUserService.retrieveAllActiveUsers().size();
-        sendBotMessageService.sendMessage(chatId, String.format(STAT_MESSAGE, activeUserCount));
+        sendBotMessageService.sendMessage(getChatId(update), String.format(STAT_MESSAGE, activeUserCount));
     }
 }
