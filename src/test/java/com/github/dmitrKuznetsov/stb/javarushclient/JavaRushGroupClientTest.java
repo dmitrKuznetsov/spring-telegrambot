@@ -1,10 +1,11 @@
 package com.github.dmitrKuznetsov.stb.javarushclient;
 
 import com.github.dmitrKuznetsov.stb.javarushclient.dto.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class JavaRushGroupClientTest {
 
@@ -19,8 +20,8 @@ class JavaRushGroupClientTest {
         List<GroupInfo> groupList = client.getGroupList(requestArgs);
 
         // then
-        Assertions.assertNotNull(groupList);
-        Assertions.assertFalse(groupList.isEmpty());
+        assertNotNull(groupList);
+        assertFalse(groupList.isEmpty());
     }
 
     @Test
@@ -35,8 +36,8 @@ class JavaRushGroupClientTest {
         List<GroupInfo> groupList = client.getGroupList(requestArgs);
 
         // then
-        Assertions.assertNotNull(groupList);
-        Assertions.assertEquals(3, groupList.size());
+        assertNotNull(groupList);
+        assertEquals(3, groupList.size());
     }
 
     @Test
@@ -48,8 +49,8 @@ class JavaRushGroupClientTest {
         List<GroupDiscussionInfo> groupList = client.getGroupDiscussionList(requestArgs);
 
         // then
-        Assertions.assertNotNull(groupList);
-        Assertions.assertFalse(groupList.isEmpty());
+        assertNotNull(groupList);
+        assertFalse(groupList.isEmpty());
     }
 
     @Test
@@ -64,8 +65,8 @@ class JavaRushGroupClientTest {
         List<GroupDiscussionInfo> groupList = client.getGroupDiscussionList(requestArgs);
 
         // then
-        Assertions.assertNotNull(groupList);
-        Assertions.assertEquals(3, groupList.size());
+        assertNotNull(groupList);
+        assertEquals(3, groupList.size());
     }
 
     @Test
@@ -77,7 +78,7 @@ class JavaRushGroupClientTest {
         Integer groupCount = client.getGroupCount(requestArgs);
 
         // then
-        Assertions.assertEquals(32, groupCount);
+        assertEquals(32, groupCount);
     }
 
     @Test
@@ -91,7 +92,7 @@ class JavaRushGroupClientTest {
         Integer groupCount = client.getGroupCount(requestArgs);
 
         // then
-        Assertions.assertEquals(7, groupCount);
+        assertEquals(7, groupCount);
     }
 
     @Test
@@ -103,9 +104,9 @@ class JavaRushGroupClientTest {
         GroupDiscussionInfo groupById = client.getGroupById(androidGroupId);
 
         // then
-        Assertions.assertNotNull(groupById);
-        Assertions.assertEquals(androidGroupId, groupById.getId());
-        Assertions.assertEquals(GroupInfoType.TECH, groupById.getType());
-        Assertions.assertEquals("android", groupById.getKey());
+        assertNotNull(groupById);
+        assertEquals(androidGroupId, groupById.getId());
+        assertEquals(GroupInfoType.TECH, groupById.getType());
+        assertEquals("android", groupById.getKey());
     }
 }

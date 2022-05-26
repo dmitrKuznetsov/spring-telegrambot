@@ -1,5 +1,8 @@
 package com.github.dmitrKuznetsov.stb.command;
 
+import org.junit.jupiter.api.DisplayName;
+
+@DisplayName("Unit-level testing for StatCommandTest")
 public class StatCommandTest extends AbstractCommandTest {
     @Override
     String getCommandName() {

@@ -4,12 +4,15 @@ import com.github.dmitrKuznetsov.stb.services.SendBotMessageService;
 import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
+import static com.github.dmitrKuznetsov.stb.command.CommandUtils.getChatId;
+
 public class StopCommand implements Command {
 
     private final SendBotMessageService sendBotMessageService;
     private final TelegramUserService telegramUserService;
 
-    public static String STOP_MESSAGE = "Деактивировал все ваши подписки \uD83D\uDE1F.";
+    public static String STOP_MESSAGE = "Деактивировал все твои подписки \uD83D\uDE1F.\n" +
+            "Ты всегда можешь вернуться нажав /start";
 
     StopCommand(SendBotMessageService sendBotMessageService,
                 TelegramUserService telegramUserService) {
@@ -19,7 +22,7 @@ public class StopCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = update.getMessage().getChatId().toString();
+        String chatId = getChatId(update);
 
         telegramUserService.findByChatId(chatId).ifPresent(telegramUser -> {
             telegramUser.setActive(false);

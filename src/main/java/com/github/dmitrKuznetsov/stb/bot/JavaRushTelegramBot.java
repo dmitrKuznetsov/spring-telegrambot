@@ -1,10 +1,10 @@
 package com.github.dmitrKuznetsov.stb.bot;
 
 import com.github.dmitrKuznetsov.stb.command.CommandContainer;
-import com.github.dmitrKuznetsov.stb.repository.TelegramUserRepository;
+import com.github.dmitrKuznetsov.stb.javarushclient.JavaRushGroupClient;
+import com.github.dmitrKuznetsov.stb.services.GroupSubService;
 import com.github.dmitrKuznetsov.stb.services.SendBotMessageServiceImpl;
 import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
-import com.github.dmitrKuznetsov.stb.services.TelegramUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,6 +12,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static com.github.dmitrKuznetsov.stb.command.CommandName.NO;
+import static com.github.dmitrKuznetsov.stb.command.CommandUtils.getText;
 
 @Component
 public class JavaRushTelegramBot extends TelegramLongPollingBot {
@@ -27,8 +28,15 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot {
     private final CommandContainer commandContainer;
 
     @Autowired
-    JavaRushTelegramBot(TelegramUserService telegramUserService) {
-        commandContainer = new CommandContainer(new SendBotMessageServiceImpl(this), telegramUserService);
+    JavaRushTelegramBot(TelegramUserService telegramUserService,
+                        JavaRushGroupClient javaRushGroupClient,
+                        GroupSubService groupSubService) {
+        commandContainer = new CommandContainer(
+                new SendBotMessageServiceImpl(this),
+                telegramUserService,
+                javaRushGroupClient,
+                groupSubService
+        );
     }
 
     @Override
@@ -44,7 +52,7 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText() ) {
-            String message = update.getMessage().getText().trim();
+            String message = getText(update);
             if (message.startsWith(COMMAND_PREFIX)) {
                 String commandIdentifier = message.split(" ")[0].toLowerCase();
                 commandContainer.retrieveCommand(commandIdentifier).execute(update);

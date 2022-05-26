@@ -4,16 +4,12 @@ import com.github.dmitrKuznetsov.stb.bot.JavaRushTelegramBot;
 import com.github.dmitrKuznetsov.stb.services.SendBotMessageService;
 import com.github.dmitrKuznetsov.stb.services.SendBotMessageServiceImpl;
 import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 abstract class AbstractCommandTest {
 
