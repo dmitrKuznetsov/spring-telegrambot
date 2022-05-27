@@ -32,6 +32,13 @@ public class GroupSub {
     )
     private List<TelegramUser> users;
 
+    public GroupSub() {}
+
+    public GroupSub(Integer id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public void addUser(TelegramUser user) {
         if (isNull(users)) {
             users = new ArrayList<>();
