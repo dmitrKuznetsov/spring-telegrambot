@@ -1,4 +1,4 @@
-# Spring-telegrambot
+# Spring JavaRush Telegram bot
 JavaRush Telegram bot. Project written on the basis of [the course](https://javarush.ru/groups/posts/2935-java-proekt-ot-a-do-ja-pishem-realjhnihy-proekt-dlja-portfolio)
 
 ## MVP Scope
