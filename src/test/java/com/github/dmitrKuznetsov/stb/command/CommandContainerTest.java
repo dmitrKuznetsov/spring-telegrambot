@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 
 import java.util.Arrays;
 
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Unit-level testing for CommandContainer")
@@ -28,7 +29,8 @@ class CommandContainerTest {
                 sendBotMessageService,
                 telegramUserService,
                 javaRushGroupClient,
-                groupSubService
+                groupSubService,
+                singletonList("username")
         );
     }
 
@@ -36,7 +38,7 @@ class CommandContainerTest {
     void shouldGetAllExistingCommands() {
         // when-then
         Arrays.stream(CommandName.values()).forEach(commandName -> {
-            Command command = commandContainer.retrieveCommand(commandName.getCommandName());
+            Command command = commandContainer.retrieveCommand(commandName.getCommandName(), "username");
             assertNotEquals(UnknownCommand.class, command.getClass());
         });
     }
@@ -47,7 +49,7 @@ class CommandContainerTest {
         String commandIdentifier = "/some_character_sequence";
 
         // when
-        Command command = commandContainer.retrieveCommand(commandIdentifier);
+        Command command = commandContainer.retrieveCommand(commandIdentifier, "username");
 
         // then
         assertEquals(UnknownCommand.class, command.getClass());
