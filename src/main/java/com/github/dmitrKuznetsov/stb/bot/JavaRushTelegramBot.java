@@ -4,6 +4,7 @@ import com.github.dmitrKuznetsov.stb.command.CommandContainer;
 import com.github.dmitrKuznetsov.stb.javarushclient.JavaRushGroupClient;
 import com.github.dmitrKuznetsov.stb.services.GroupSubService;
 import com.github.dmitrKuznetsov.stb.services.SendBotMessageServiceImpl;
+import com.github.dmitrKuznetsov.stb.services.StatisticsService;
 import com.github.dmitrKuznetsov.stb.services.TelegramUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,13 +34,15 @@ public class JavaRushTelegramBot extends TelegramLongPollingBot {
     JavaRushTelegramBot(TelegramUserService telegramUserService,
                         JavaRushGroupClient javaRushGroupClient,
                         GroupSubService groupSubService,
-                        @Value("#{'${bot.admins}'.split(',')}") List<String> admins) {
+                        @Value("#{'${bot.admins}'.split(',')}") List<String> admins,
+                        StatisticsService statisticsService) {
         commandContainer = new CommandContainer(
                 new SendBotMessageServiceImpl(this),
                 telegramUserService,
                 javaRushGroupClient,
                 groupSubService,
-                admins
+                admins,
+                statisticsService
         );
     }
 
