@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github.dmitrKuznetsov</groupId>
 	<artifactId>spring-telegrambot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>Spring JavaRush Telegram bot</name>
 	<description>Telegram bot for JavaRush</description>
 	<properties>

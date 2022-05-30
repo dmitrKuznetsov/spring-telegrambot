@@ -34,7 +34,7 @@ class GroupSubRepositoryTest {
         assertEquals(1, groupSubFromDB.get().getId());
         List<TelegramUser> users = groupSubFromDB.get().getUsers();
         for(int i=0; i<users.size(); i++) {
-            assertEquals(String.valueOf(i + 1), users.get(i).getChatId());
+            assertEquals(Long.valueOf(i + 1), users.get(i).getChatId());
             assertTrue(users.get(i).getActive());
         }
     }

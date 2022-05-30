@@ -1,7 +1,6 @@
 package com.github.dmitrKuznetsov.stb.services;
 
 import com.github.dmitrKuznetsov.stb.javarushclient.JavaRushGroupClient;
-import com.github.dmitrKuznetsov.stb.javarushclient.JavaRushPostClient;
 import com.github.dmitrKuznetsov.stb.javarushclient.dto.GroupDiscussionInfo;
 import com.github.dmitrKuznetsov.stb.repository.GroupSubRepository;
 import com.github.dmitrKuznetsov.stb.repository.entity.GroupSub;
@@ -30,21 +29,21 @@ public class GroupSubServiceImpl implements GroupSubService {
     }
 
     @Override
-    public GroupSub save(String chatId, GroupDiscussionInfo groupDiscussionInfo) {
+    public GroupSub save(Long chatId, GroupDiscussionInfo groupDiscussionInfo) {
         TelegramUser telegramUser = telegramUserService.findByChatId(chatId).orElseThrow(NotFoundException::new);
         GroupSub groupSub;
         Optional<GroupSub> groupSubFromDb = groupSubRepository.findById(groupDiscussionInfo.getId());
         if (groupSubFromDb.isPresent()) {
             groupSub = groupSubFromDb.get();
             Optional<TelegramUser> first = groupSub.getUsers().stream()
-                    .filter(it -> it.getChatId().equalsIgnoreCase(chatId))
+                    .filter(it -> it.getChatId().equals(chatId))
                     .findFirst();
             if (first.isEmpty())
                 groupSub.addUser(telegramUser);
         } else {
             groupSub = new GroupSub(groupDiscussionInfo.getId(), groupDiscussionInfo.getTitle());
             groupSub.addUser(telegramUser);
-            groupSub.setLastArticleId(javaRushGroupClient.findLastArticleId(groupDiscussionInfo.getId()));
+            groupSub.setLastPostId(javaRushGroupClient.findLastPostId(groupDiscussionInfo.getId()));
         }
         return groupSubRepository.save(groupSub);
     }

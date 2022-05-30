@@ -27,7 +27,7 @@ public class StartCommand implements Command {
 
     @Override
     public void execute(Update update) {
-        String chatId = getChatId(update);
+        Long chatId = getChatId(update);
 
         Optional<TelegramUser> optionalTelegramUser = telegramUserService.findByChatId(chatId);
         TelegramUser telegramUser;

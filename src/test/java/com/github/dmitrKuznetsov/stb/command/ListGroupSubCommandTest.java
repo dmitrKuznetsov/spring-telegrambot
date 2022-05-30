@@ -26,7 +26,7 @@ class ListGroupSubCommandTest {
     void shouldProperlyShowsListGroupSub() {
         // given
         TelegramUser telegramUser = new TelegramUser();
-        telegramUser.setChatId("1");
+        telegramUser.setChatId(1L);
         telegramUser.setActive(true);
 
         List<GroupSub> groupSubList = new ArrayList<>();
@@ -45,7 +45,7 @@ class ListGroupSubCommandTest {
 
         ListGroupSubCommand command = new ListGroupSubCommand(sendBotMessageService, telegramUserService);
 
-        Update update = prepareUpdate(Long.valueOf(telegramUser.getChatId()), CommandName.LIST_GROUP_SUB.getCommandName());
+        Update update = prepareUpdate(telegramUser.getChatId(), CommandName.LIST_GROUP_SUB.getCommandName());
 
         String collectedGroups = telegramUser.getGroupSubs().stream()
                 .map(group -> String.format("Группа: %s, ID = %s \n", group.getTitle(), group.getId()))

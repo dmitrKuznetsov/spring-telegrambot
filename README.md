@@ -1,9 +1,13 @@
 # Spring JavaRush Telegram bot
 JavaRush Telegram bot. Project written on the basis of [the course](https://javarush.ru/groups/posts/2935-java-proekt-ot-a-do-ja-pishem-realjhnihy-proekt-dlja-portfolio)
 
-## MVP Scope
-As a user, I want to subscribe on group of posts and get notification via telegram-bot every time,
-when new post, related to group subscriptions, has come.
+Implemented all the logic, planned up to MVP:
+*   User can subscribe on group of posts
+*   User can view list of group subscriptions on which user subscribes
+*   User can unsubscribe from group of posts
+*   User can set an inactive bot and do not receive notifications
+*   User can restart getting notifications
+*   Admin has ability to see bot statistics
 
 # How it works
 Based on MVP Scope, we can specify next behaviours (here and after Telegram User, which is using JavaRush Telgegram bot will call User):
