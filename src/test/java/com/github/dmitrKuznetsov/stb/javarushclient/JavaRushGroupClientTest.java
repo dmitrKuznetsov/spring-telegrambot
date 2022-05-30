@@ -9,7 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class JavaRushGroupClientTest {
 
-    private final JavaRushGroupClient client = new JavaRushGroupClientImpl("https://javarush.ru/api/1.0/rest");
+    public static final String JAVARUSH_API_PATH = "https://javarush.ru/api/1.0/rest";
+
+    private final JavaRushGroupClient client = new JavaRushGroupClientImpl(JAVARUSH_API_PATH);
 
     @Test
     public void shouldProperlyGetGroupsWithEmptyArgs() {
@@ -42,7 +44,7 @@ class JavaRushGroupClientTest {
 
     @Test
     public void shouldProperlyGetGroupsDiscWithEmptyArgs() {
-// given
+        // given
         GroupRequestArgs requestArgs = GroupRequestArgs.builder().build();
 
         // when

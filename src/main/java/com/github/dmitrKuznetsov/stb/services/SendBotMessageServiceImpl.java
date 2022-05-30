@@ -1,10 +1,14 @@
 package com.github.dmitrKuznetsov.stb.services;
 
 import com.github.dmitrKuznetsov.stb.bot.JavaRushTelegramBot;
-import org.jvnet.hk2.annotations.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.util.List;
+
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Service
 public class SendBotMessageServiceImpl implements SendBotMessageService {
@@ -24,7 +28,15 @@ public class SendBotMessageServiceImpl implements SendBotMessageService {
         try {
             telegramBot.execute(sendMessage);
         } catch (TelegramApiException e) {
+            //todo add logging to the project.
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void sendMessage(String chatId, List<String> messages) {
+        if (isEmpty(messages)) return;
+
+        messages.forEach(m -> sendMessage(chatId, m));
     }
 }

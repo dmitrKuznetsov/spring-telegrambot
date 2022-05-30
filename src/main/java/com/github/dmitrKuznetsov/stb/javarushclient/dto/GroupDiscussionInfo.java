@@ -4,9 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-/**
- * Group discussion info class.
- */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ToString(callSuper = true)

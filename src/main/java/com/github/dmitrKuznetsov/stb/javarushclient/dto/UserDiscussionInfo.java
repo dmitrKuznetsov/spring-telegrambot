@@ -2,9 +2,6 @@ package com.github.dmitrKuznetsov.stb.javarushclient.dto;
 
 import lombok.Data;
 
-/**
- * DTO for User discussion info.
- */
 @Data
 public class UserDiscussionInfo {
 
