@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 import static com.github.dmitrKuznetsov.stb.command.CommandUtils.getChatId;
 
+@AdminCommand
 public class StatCommand implements Command {
 
     private final TelegramUserService telegramUserService;
