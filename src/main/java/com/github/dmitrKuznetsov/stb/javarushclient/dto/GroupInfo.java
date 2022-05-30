@@ -3,9 +3,6 @@ package com.github.dmitrKuznetsov.stb.javarushclient.dto;
 import lombok.Data;
 import lombok.ToString;
 
-/**
- * Group Info DTO class.
- */
 @Data
 @ToString
 public class GroupInfo {
